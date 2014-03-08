@@ -1,0 +1,4 @@
+DEBUG = True
+USERNAME = 'administrator'
+PASSWORD = 'admin'
+SECRET_KEY = '\x9d\xe7\x80\x84\xd5<\xdape\xae\xe2\x05#\xb5\x8a\xeeX\xac\xa0\xcf\ri$\xec'

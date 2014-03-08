@@ -1,0 +1,52 @@
+#+TITLE: Web-based xbee monitor/control
+** Intro
+   Very light weight web based realtime [[http://www.digi.com/xbee/][xbee]] monitor/control
+   system. You can deploy it on your Raspberry PI if you like.
+** Background
+   This project is originally designed for [[http://www.sunist.org][SUNIST]] Tokamak
+   Wireless(ie. ZigBee) monitoring and control system. The system was
+   originally programmed on Windows system using VB language which is
+   hardly to maintain when more ZigBee modules added and of course not
+   portable on other platforms.
+
+   This system uses [[http://www.digi.com/xbee/][xbee]] wireless module to monitor the status of
+   power supply, vacuum chamber and other equipments as well as the
+   control of them build up the slow one (in seconds). Below is a
+   picture of xbee modules deployed around [[http://www.sunist.org][SUNIST]] Tokamak.
+
+   [[deployment.png]]
+
+** Framework
+   Server side: [[http://flask.pocoo.org/][Flask]] [[http://redis.io][redis]]
+   Front-end: [[http://getbootstrap.com/][Bootstrap]] [[http://jquery.com][jQuery]]
+** Installation
+   Install redis, python-pip, python-virtualenv with your linux distribution
+   package manager (apt-get, yum, zypper, pacman etc.)
+   #+BEGIN_EXAMPLE
+     virtualenv --distribute venv
+     cd venv
+     source bin/activate
+     pip install serial XBee redis
+     git clone https://github.com/dengshuan/sunist.git
+   #+END_EXAMPLE
+** Deployment and Usage
+   1. Modify your xbee configuration file: *scripts/config.json*
+   2. Initialize your xbees =python scripts/initialize.py=
+   3. Begin sampling =python scripts/sample.py=
+   4. Launch web server =python sunist.py=
+   5. Open [[http://localhost:5000]] in your web browser
+   6. Watch sampling data and change pin output level all in a web
+      browser
+** Tips
+   + Different linux distributions may assign different device name
+     for usb port, usually */dev/ttyUSBn* or */dev/ttySn* where *n* is
+     a number. Make sure your distro assign */dev/ttyUSBn* , if not,
+     change */dev/ttyUSBn* to */dev/ttySn* in *scripts/initialize.py*
+     and *scripts/sample.py*
+   + You would see *Permission denied* error if you are not in the
+     *dialout* group. Add yourself to *dialout* group by =sudo usermod
+     -a -G dialout $USER=
+** Todo
+   + Improve UI (heavily depend on user's usage)
+   + Add web interface for configuration
+   + Add a detail documentation for secondary development

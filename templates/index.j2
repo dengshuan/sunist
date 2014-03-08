@@ -1,0 +1,39 @@
+{% extends "base.j2" %}
+{% block content %}
+  <div class="jumbotron">
+    <button id="test" class="btn btn-primary">Test</button>
+    {% for module in contents %}
+    <div class="panel panel-primary">
+
+      <div class="panel-heading">
+	<div class="panel-title">
+	  {{ module.name }}
+	</div>
+      </div>
+
+      <div class="panel-body">
+	<p><label>Address</label> {{ module.address }}</p>
+	<p>
+	  <label class="hidden">{{ module.name }}</label>
+	  <label class="hidden">{{ module.address }}</label>
+	  <label>IO</label>
+	  {% for io in module.io %}
+	    {% if io.0 == 2 %}
+	      <span class="io" name="D{{ loop.index0 }}">{{ io.1 }}</span>
+	    {% elif io.0 == 3 %}
+	      <span class="io" name="D{{ loop.index0 }}"><button class="btn btn-primary disabled">{{ io.1 }}</button></span>
+	    {% elif io.0 == 4 %}
+	      <span class="io" name="D{{ loop.index0 }}"><button class="btn btn-primary control">{{ io.1 }}</button></span>
+	    {% elif io.0 == 5 %}
+	      <span class="io" name="D{{ loop.index0 }}"><button class="btn btn-primary control">{{ io.1 }}</button></span>
+	    {% else %}
+	      <span class="io" name="D{{ loop.index0 }}"><button class="hidden">{{ io.1 }}</button></span>
+	    {% endif %}
+	  {% endfor %}
+	</p>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}
