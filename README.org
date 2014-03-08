@@ -1,4 +1,4 @@
-#+TITLE: Web-based xbee monitor/control
+* Web-based Realtime Xbee Monitor/Control System
 ** Intro
    Very light weight web based realtime [[http://www.digi.com/xbee/][xbee]] monitor/control
    system. You can deploy it on your Raspberry PI if you like.
@@ -17,8 +17,8 @@
    [[deployment.png]]
 
 ** Framework
-   Server side: [[http://flask.pocoo.org/][Flask]] [[http://redis.io][redis]]
-   Front-end: [[http://getbootstrap.com/][Bootstrap]] [[http://jquery.com][jQuery]]
+   + Server side: [[http://flask.pocoo.org/][Flask]] [[http://redis.io][redis]]
+   + Front-end: [[http://getbootstrap.com/][Bootstrap]] [[http://jquery.com][jQuery]]
 ** Installation
    Install redis, python-pip, python-virtualenv with your linux distribution
    package manager (apt-get, yum, zypper, pacman etc.)
