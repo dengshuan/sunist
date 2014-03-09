@@ -1,4 +1,4 @@
-* Web-based Realtime Xbee Monitor/Control System
+#+TITLE: Web-based Realtime Xbee Monitor/Control System
 ** Intro
    Very light weight web based realtime [[http://www.digi.com/xbee/][xbee]] monitor/control
    system. You can deploy it on your Raspberry PI if you like.
