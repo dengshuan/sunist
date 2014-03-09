@@ -32,6 +32,7 @@
 ** Deployment and Usage
    1. Modify your xbee configuration file: *scripts/config.json*
    2. Initialize your xbees =python scripts/initialize.py=
+      (Remember to start redis server before initialize =redis-server=)
    3. Begin sampling =python scripts/sample.py=
    4. Launch web server =python sunist.py=
    5. Open [[http://localhost:5000]] in your web browser
