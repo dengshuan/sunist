@@ -23,19 +23,33 @@
    Install redis, python-pip, python-virtualenv with your linux distribution
    package manager (apt-get, yum, zypper, pacman etc.)
    #+BEGIN_EXAMPLE
-     virtualenv --distribute venv
-     cd venv
+     virtualenv --distribute ~/venv
+     cd ~/venv
      source bin/activate
-     pip install serial XBee redis
+     pip install pyserial XBee redis Flask
      git clone https://github.com/dengshuan/sunist.git
    #+END_EXAMPLE
 ** Deployment and Usage
    1. Modify your xbee configuration file: *scripts/config.json*
-   2. Initialize your xbees =python scripts/initialize.py=
-      (Remember to start redis server before initialize =redis-server=)
-   3. Begin sampling =python scripts/sample.py=
-   4. Launch web server =python sunist.py=
-   5. Open [[http://localhost:5000]] in your web browser
+   2. Initialize your xbees. start redis server if not started yet
+      #+BEGIN_EXAMPLE
+        cd ~/venv/sunist/scripts
+        python initialize.py
+      #+END_EXAMPLE
+   3. Begin sampling
+      #+BEGIN_EXAMPLE
+        python sample.py
+      #+END_EXAMPLE
+   4. Launch web server, run following commands in a new terminal
+      #+BEGIN_EXAMPLE
+        cd ~/venv/sunist
+        source ~/venv/bin/activate
+        python sunist.py
+      #+END_EXAMPLE
+   5. Open [[http://localhost:5000]] in your web browser. If you want to
+      view this page on other computer or mobile client, change last
+      line in *sunist.py* to =app.run(host = '0.0.0.0')= , and visit
+      http://YourServerIP:5000
    6. Watch sampling data and change pin output level all in a web
       browser
 ** Tips
