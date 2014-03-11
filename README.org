@@ -52,6 +52,49 @@
       http://YourServerIP:5000
    6. Watch sampling data and change pin output level all in a web
       browser
+   7. Deploy with [[http://nginx.org][nginx]] and [[http://uwsgi-docs.readthedocs.org/en/latest/][uwsgi]]. Make sure *nginx*, *uwsgi*,
+      *uwsgi-plugin-python* installed on the server. Then create nginx
+      configuration file */etc/nginx/sites-avaliable/sunist*
+      #+BEGIN_SRC conf
+        server {
+                listen 5000;
+                server_name hostname;
+            
+                location /static {
+                        alias /home/pi/venv/sunist/static;
+                }
+            
+                location / {
+                        include uwsgi_params;
+                        uwsgi_pass 127.0.0.1:9001;
+                        uwsgi_param UWSGI_PYHOME /home/pi/venv;
+                        uwsgi_param UWSGI_CHDIR /home/pi/venv/sunist;
+                        uwsgi_param UWSGI_MODULE sunist;
+                        uwsgi_param UWSGI_CALLABLE app;
+                }
+            
+                error_page 404 /404.html;
+        }
+      #+END_SRC
+      And create uwsgi configuration file:
+      */etc/uwsgi/apps-available/myuwsgi.ini*
+      #+BEGIN_SRC conf
+        [uwsgi]
+        plugins=python
+        vhost=true
+        socket=127.0.0.1:9001
+      #+END_SRC
+      Link above two files to /enabled/ sites or apps and restart
+      service
+      #+BEGIN_EXAMPLE
+        sudo ln -s /etc/nginx/sites-available/sunist /etc/nginx/sites-enabled
+        sudo ln -s /etc/uwsgi/apps-available/myuwsgi.ini /etc/uwsgi/apps-enabled
+        sudo service nginx restart
+        sudo service uwsgi restart
+      #+END_EXAMPLE
+      That's it! (Note that above deployment is based on raspberry pi
+      with raspbian Wheezy. Other platform should be similar, but not
+      tested yet)
 ** Tips
    + Different linux distributions may assign different device name
      for usb port, usually */dev/ttyUSBn* or */dev/ttySn* where *n* is
