@@ -11,7 +11,7 @@ import os
 import struct
 
 redis = Redis()
-ser = serial.Serial('/dev/ttyUSB0',9600)
+ser = serial.Serial('/dev/ttyUSB0',9600, timeout=1)
 xbee = ZigBee(ser)
 
 address = redis.hgetall('xbee:lookup:address')
